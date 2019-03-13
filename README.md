@@ -1,2 +1,2 @@
 # python_practice
-test
+pythonの練習をするよ
