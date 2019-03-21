@@ -6,14 +6,12 @@ import matplotlib.pyplot as plt
 aiueo = 'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽ、。アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポー…―っッゃゅょャュョ「」'
 
 
-#読み取り
+#読み取ってaに格納
 with open('bocchan.txt', encoding='shift_jis') as r:
-    string=r.read()
-
-a=list(string)
+    a=list(r.read())
 
 
-#《》で囲われたルビを消す
+#《》などのいらないところを探して消す。
 rubi = False
 for i in range(len(a)):
     if a[i] == '《' or a[i] == '[':
@@ -32,7 +30,7 @@ while '\n' in a:
         
 
 
-#解析
+#a[i]の前後500文字以内に同じ文字が何個あるかをb[i]に格納
 b=np.zeros((len(a)))
 for i in range(500,len(a)-500):
     if not a[i] in aiueo:
@@ -56,6 +54,7 @@ for i in range(500,len(a)-500):
         
         
 
+#グラフを描画する
 for i in range(len(c)):
     x_data = c[i][1]
     y_data = c[i][2]
@@ -69,12 +68,7 @@ for i in range(len(c)):
                 break
     else:
         plt.plot(x_data, y_data, alpha=0.1)
-#plt.legend()
 plt.show()
 
-#for i in range(len(c)):
-#    y_data = c[i][2]
-#    if max(y_data) > 10:
-#        print(c[i][0],max(y_data))
 
 
