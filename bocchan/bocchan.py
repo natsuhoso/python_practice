@@ -32,15 +32,8 @@ while 'rubi' in a:
 while '\n' in a:
     a.remove('\n')
         
+lena=len(a)
 
-
-#解析
-#b=np.zeros((len(a)))
-#for i in range(500,len(a)-500):
-#    if not a[i] in aiueo:
-#        for j in range(-500,500):
-#            if a[i]==a[i+j]:
-#                b[i] = b[i] + 1
 
 c=[]
 for i in range(len(a)):
@@ -53,19 +46,19 @@ for i in range(len(a)):
     else:
         c.append((a[i],[[i,0]]))
 
-        
+def gause(x,a,b):
+    return np.exp(-((x-a)**2/b**2))
 
 for i in range(len(c)):  
     ci=c[i][1]
     for j in range(len(ci)):
         temp = 0
         for k in range(len(ci)): 
-            if ci[j][0] - 1000 < ci[k][0] and ci[k][0] < ci[j][0] + 1000:
-                temp = temp + 1
+            temp = temp + gause(ci[k][0],ci[j][0],10000)
         ci[j][1] = temp
         
 
-c = [x for x in c if max([z for [y,z] in x[1]]) > 5]
+c = [x for x in c if max([z for [y,z] in x[1]]) > 10]
 lenc = len(c)
 #kanjiは('字',(位置,文字数)のリスト)のリスト
 
@@ -86,11 +79,11 @@ for i in range(lenc):
 xlist=[]
 for i in range(lenc):
     ci=c[i][1]
-    x_data = [x for [x,y] in ci]
-    y_data = [y for [x,y] in ci]
-    cubic_interp = PchipInterpolator(x_data, y_data)
-    x_data2 = list(range(x_data[0],x_data[-1],100))
-    y_data2 = cubic_interp(x_data2)
+    x_data2 = [x for [x,y] in ci]
+    y_data2 = [y for [x,y] in ci]
+    #cubic_interp = PchipInterpolator(x_data, y_data)
+    #x_data2 = list(range(x_data[0],x_data[-1],100))
+    #y_data2 = cubic_interp(x_data2)
     in_xlist=[]
     for j in range(len(x_data2)):
         in_xlist=in_xlist+[(x_data2[j],y_data2[j])]
@@ -117,8 +110,8 @@ lines = LineCollection(xlist, pickradius=5, colors=colors, cmap=plt.cm.RdYlGn, l
 lines.set_picker(True)
 
 ax.add_collection(lines)
-ax.set_ylim(0,30)
-ax.set_xlim(0,90000)
+ax.set_ylim(0,110)
+ax.set_xlim(0,lena)
 
 annot = ax.annotate("a", xy=(0,0), xytext=(0,5),textcoords="offset points",
                     bbox=dict(boxstyle="round", fc="w"))
