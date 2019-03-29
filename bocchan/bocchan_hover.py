@@ -41,7 +41,7 @@ for i in range(len(c)):
             temp = temp + gause(ci[k][0],ci[j][0],10000)
         ci[j][1] = temp
 
-c = [x for x in c if max([z for [y,z] in x[1]]) > 10]
+c = [x for x in c if max([z for [y,z] in x[1]]) > 20]
 lenc = len(c)
 #kanjiは('字',(位置,文字数)のリスト)のリスト
 
@@ -86,7 +86,7 @@ def color_on(num):
     colors[num] = [1,0,0,1]
     return colors
 
-lines = LineCollection(xlist, pickradius=5, colors=defalt_colors, cmap=plt.cm.RdYlGn, linewidths = 0.5)
+lines = LineCollection(xlist, pickradius=3, colors=defalt_colors, cmap=plt.cm.RdYlGn, linewidths = 0.5)
 lines.set_picker(True)
 
 ax.add_collection(lines)
