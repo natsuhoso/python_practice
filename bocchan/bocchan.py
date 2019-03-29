@@ -9,29 +9,12 @@ from scipy.interpolate import PchipInterpolator
 aiueo = 'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽ、。アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポー…―っッゃゅょャュョ「」-:|：｜'
 
 #読み取り
-with open('bocchan.txt', encoding='shift_jis') as r:
+with open('bocchan-simplified.txt', encoding='shift_jis') as r:
     string=r.read()
 
 a=list(string)
 
 
-#《》で囲われたルビを消す
-rubi = False
-for i in range(len(a)):
-    if a[i] == '《' or a[i] == '[':
-        rubi = True
-        a[i] = 'rubi'
-    elif a[i] == '》' or a[i] == ']':
-        a[i] = 'rubi'
-        rubi = False
-    elif rubi == True:
-        a[i] = 'rubi'
-
-while 'rubi' in a:
-    a.remove('rubi')
-while '\n' in a:
-    a.remove('\n')
-        
 lena=len(a)
 
 
@@ -122,7 +105,6 @@ def ann(ind):
     annot.set_text(labels[ind])
     annot.get_bbox_patch().set_alpha(0.4)
     annot.set_visible(selected[ind])
-    
 
 def on_pick(evt):
     if evt.artist is lines:
@@ -133,7 +115,6 @@ def on_pick(evt):
         lines.set_color(color_on(selected))
         ann(ind)
         fig.canvas.draw_idle()
-    
 
 fig.canvas.mpl_connect("pick_event", on_pick)
 plt.show()
